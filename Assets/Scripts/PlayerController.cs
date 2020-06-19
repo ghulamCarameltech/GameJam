@@ -17,12 +17,12 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        InputController.onTap += ThrowBall;
+        EventManager.OnShoot += ThrowBall;
     }
     
     void OnDisable()
     {
-        InputController.onTap -= ThrowBall;
+        EventManager.OnShoot -= ThrowBall;
     }
 
     void Awake()
@@ -32,22 +32,48 @@ public class PlayerController : MonoBehaviour
         InputController.Enable = true;
     }
 
-    public void Initialize ()
-    {
-        // gameObject.transform.position = _path[0].position;
-    }
-
-    void ThrowBall()
+    void ThrowBall(UIHUD.ShootType type)
     {
        _rb.isKinematic = false;
 
-       // _rb.AddForce(new Vector3(0,100,1400)); // Missed Shot
+       switch (type)
+       {
+           case UIHUD.ShootType.Perfect:
+            _rb.AddForce(new Vector3(0,100,1378)); 
+           break;
 
-    //    _rb.AddForce(new Vector3(0,100,1200)); //Nice Shoot
+           case UIHUD.ShootType.Good:
+            _rb.AddForce(new Vector3(0,100,1350)); 
+           break;
 
-        // _rb.AddForce(new Vector3(0,100,1300)); //Good Shoot
+           case UIHUD.ShootType.Nice:
+            if(Random.Range(0,1) == 0)
+            {
+                _rb.AddForce(new Vector3(0,100,1200)); 
+            }
+            else
+            {
+                _rb.AddForce(new Vector3(0,100,1300)); 
+            }
+           break;
 
-        _rb.AddForce(new Vector3(0,100,1378)); // Perfect shoot
+           case UIHUD.ShootType.Missed:
+            int range = Random.Range(0,2);
+            if(range == 0)
+            {
+                _rb.AddForce(new Vector3(0,100,1400)); 
+            }
+            else if(range == 1)
+            {
+                _rb.AddForce(new Vector3(100,100,1400)); 
+            }
+            else
+            {
+                _rb.AddForce(new Vector3(-100,100,1400)); 
+            }
+           break;
+
+       }
     }
     
 }
