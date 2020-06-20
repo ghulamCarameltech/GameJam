@@ -18,6 +18,17 @@ public class NPCController : MonoBehaviour
     [SerializeField]
     GameObject kid;
 
+    bool _move;
+
+    void OnEnable()
+    {
+        EventManager.OnBallCollision += StopPlayer;
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnBallCollision -= StopPlayer;
+    }
 
     void Awake()
     {
@@ -25,11 +36,14 @@ public class NPCController : MonoBehaviour
 
         _animator = GetComponent<Animator>();
 
+        _move = true;
+
     }
 
     void Update()
     {
-        Move();
+        if(_move)
+            Move();
     }
 
     public void Move()
@@ -40,28 +54,17 @@ public class NPCController : MonoBehaviour
             RotateTowardsMoving();
             transform.position = Vector3.MoveTowards(transform.position, kid.transform.position,distance*_speed * Time.deltaTime);   
             
-            _animator.SetBool("Idle", false);
             _animator.SetBool("Run", true);
         }
        
-    //    transform.Translate(Vector3.forward * Time.deltaTime * _speed);
-
-    //    _animator.SetBool("Run", true);
     }
     
     void StopPlayer()
     {
-        LeanTween.cancel(gameObject);
-        _animator.SetTrigger("Death");
-        InputController.Enable = false;
-        Invoke("PlayerDead",1f);
-        // _rb.isKinematic = true;
+        _animator.SetBool("Run", false);
+        _animator.SetBool("Jump",true);
     }
 
-    void PlayerDead()
-    {
-         
-    }
 
     void RotateTowardsMoving()
     {
@@ -70,12 +73,5 @@ public class NPCController : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    // void OnTriggerEnter(Collider collider)
-    // {
-    //     if(collider.tag == "Turnings")
-    //     {
-    //         RotateTowardsMoving();
-    //     }
-    // }
 
 }

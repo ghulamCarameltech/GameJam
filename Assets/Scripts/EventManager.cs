@@ -10,4 +10,13 @@ public class EventManager : MonoBehaviour
         if (OnShoot != null)
             OnShoot.Invoke(type);
     }
+
+    public delegate void BallCollision();
+    public static event BallCollision OnBallCollision;
+
+    public static void RaiseBallCollisionEvent ()
+    {
+        if (OnBallCollision != null)
+            OnBallCollision.Invoke();
+    }
 }

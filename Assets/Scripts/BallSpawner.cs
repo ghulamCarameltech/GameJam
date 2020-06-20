@@ -16,8 +16,17 @@ public class BallSpawner : MonoBehaviour
   
     private float spawnTime;
 
+    bool canSpawn;
 
-    private float _ballSpeedMax = 13, _ballSpeedMin = 10;
+    void OnEnable()
+    {
+        EventManager.OnBallCollision += StopSpawning;
+    }
+
+    void OnDisable()
+    {
+        EventManager.OnBallCollision -= StopSpawning;
+    }
 
  
     void Awake ()
@@ -30,22 +39,19 @@ public class BallSpawner : MonoBehaviour
         }
 
         spawnPoints = spawningPointsAsList.ToArray ();
-    }
- 
- 
-    public void Initialize ()
-    {
-        SetRandomTime ();
-        time = 0;
-    }
 
-    void SetRandomTime ()
+         canSpawn=true;
+    }
+ 
+     void SetRandomTime ()
     {
         spawnTime = Random.Range (minTime, maxTime);
     }
 
     void FixedUpdate ()
     {
+        if(canSpawn)
+        {
             time += Time.deltaTime;
             
             if (time >= spawnTime) 
@@ -54,6 +60,7 @@ public class BallSpawner : MonoBehaviour
                 SetRandomTime ();
                 time = 0;
             }
+        }
     }
 
     void Spawn ()
@@ -62,6 +69,11 @@ public class BallSpawner : MonoBehaviour
         
         GameObject ball = Instantiate (_ball, new Vector3(spawnPoints [spawnPointIndex].position.x, -2.5f, spawnPoints [spawnPointIndex].position.z), spawnPoints [spawnPointIndex].rotation) as GameObject;
 
+    }
+
+    void StopSpawning()
+    {
+        canSpawn = false;
     }
 }
 

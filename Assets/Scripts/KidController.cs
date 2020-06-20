@@ -27,6 +27,7 @@ public class KidController : MonoBehaviour
 
     Transform []_path;
 
+    bool _move;
 
     public static bool PlayerEnable { get; set; }
 
@@ -68,11 +69,14 @@ public class KidController : MonoBehaviour
         RunnerInputController.Enable = true;
 
         zFactor = 0;
+
+        _move = true;
     }
 
     void Update()
     {
-        Move();
+        if(_move)
+            Move();
     }
 
     public void Move()
@@ -191,16 +195,17 @@ public class KidController : MonoBehaviour
     
     void StopPlayer()
     {
-        LeanTween.cancel(gameObject);
-        _animator.SetTrigger("Death");
+        _animator.SetBool("Run",false);
+        _animator.SetBool("Death",true);
+        Invoke("StopAnimation",0.5f);
         InputController.Enable = false;
-        Invoke("PlayerDead",1f);
+        _move = false;
         // _rb.isKinematic = true;
     }
 
-    void PlayerDead()
+    void StopAnimation()
     {
-         
+        _animator.enabled = false;
     }
 
     void RotateTowardsMoving()
@@ -243,6 +248,12 @@ public class KidController : MonoBehaviour
         {
             tilesCollected++;
             collider.gameObject.SetActive(false);
+        }
+
+        if(collider.tag == "Ball")
+        {
+            StopPlayer();
+            EventManager.RaiseBallCollisionEvent();
         }
     }
 

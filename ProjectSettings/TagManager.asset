@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Turnings
   - Tiles
+  - Ball
   layers:
   - Default
   - TransparentFX
