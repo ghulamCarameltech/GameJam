@@ -37,6 +37,8 @@ public class KidController : MonoBehaviour
     [SerializeField]
     GameObject right,left,middle;
 
+    int tilesCollected = 0;
+
     void OnEnable()
     {
         RunnerInputController.onMove += ChangeDirection;
@@ -235,6 +237,12 @@ public class KidController : MonoBehaviour
         if(collider.tag == "Turnings")
         {
             RotateTowardsMoving();
+        }
+
+        if(collider.tag == "Tiles")
+        {
+            tilesCollected++;
+            collider.gameObject.SetActive(false);
         }
     }
 
