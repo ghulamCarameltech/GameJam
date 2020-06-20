@@ -47,14 +47,7 @@ public class PlayerController : MonoBehaviour
            break;
 
            case UIHUD.ShootType.Nice:
-            if(Random.Range(0,1) == 0)
-            {
-                _rb.AddForce(new Vector3(0,100,1200)); 
-            }
-            else
-            {
-                _rb.AddForce(new Vector3(0,100,1300)); 
-            }
+            _rb.AddForce(new Vector3(0,0,1400)); 
            break;
 
            case UIHUD.ShootType.Missed:
@@ -72,8 +65,8 @@ public class PlayerController : MonoBehaviour
                 _rb.AddForce(new Vector3(-100,100,1400)); 
             }
            break;
-
        }
+      
     }
     
 }
