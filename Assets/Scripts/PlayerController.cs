@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody _rb;
 
+    Camera _camera;
+
     void OnEnable()
     {
         EventManager.OnShoot += ThrowBall;
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        _camera = GameObject.FindObjectOfType<Camera>();
         _rb = GetComponent<Rigidbody>();
         _rb.isKinematic = true;
         InputController.Enable = true;
@@ -36,10 +39,12 @@ public class PlayerController : MonoBehaviour
     {
        _rb.isKinematic = false;
 
+       InputController.Enable = false;
+
        switch (type)
        {
            case UIHUD.ShootType.Perfect:
-            _rb.AddForce(new Vector3(0,100,1378)); 
+            _rb.AddForce(new Vector3(0,105,1378)); 
            break;
 
            case UIHUD.ShootType.Good:
@@ -66,7 +71,17 @@ public class PlayerController : MonoBehaviour
             }
            break;
        }
-      
+       Invoke("MoveCameraTowardsTiles",1.5f);
     }
     
+    void MoveCameraTowardsTiles() 
+    {
+        Vector3 finalPos = new Vector3(0,-1.397927f,-29.65237f);
+        Vector3 finalRot = new Vector3(15.745f,-89.14201f,0);
+
+        LeanTween.move(_camera.gameObject,finalPos,2f);
+        LeanTween.rotate(_camera.gameObject,finalRot,2f);
+    }
 }
+
+
