@@ -40,6 +40,8 @@ public class KidController : MonoBehaviour
 
     int tilesCollected = 0;
 
+    int maxSpawnTiles;
+
     void OnEnable()
     {
         RunnerInputController.onMove += ChangeDirection;
@@ -71,6 +73,21 @@ public class KidController : MonoBehaviour
         zFactor = 0;
 
         _move = true;
+
+        switch(Game.selectedShootType) {
+            case Game.ShootType.Perfect:
+                maxSpawnTiles = 1;
+            break;
+            case Game.ShootType.Good:
+                maxSpawnTiles = 2;
+            break;
+            case Game.ShootType.Nice:
+                maxSpawnTiles = 5;
+            break;
+
+        }
+
+        EventManager.RaiseTileCollectionUIEvent(maxSpawnTiles);
     }
 
     void Update()
@@ -197,15 +214,16 @@ public class KidController : MonoBehaviour
     {
         _animator.SetBool("Run",false);
         _animator.SetBool("Death",true);
-        Invoke("StopAnimation",0.5f);
-        InputController.Enable = false;
-        _move = false;
-        // _rb.isKinematic = true;
+        RunnerInputController.Enable = false;
+        _move = false;    
     }
 
-    void StopAnimation()
+    void WinPlayer()
     {
-        _animator.enabled = false;
+        _animator.SetBool("Run",false);
+        _animator.SetBool("Jump",true);
+        RunnerInputController.Enable = false;
+        _move = false;
     }
 
     void RotateTowardsMoving()
@@ -248,12 +266,25 @@ public class KidController : MonoBehaviour
         {
             tilesCollected++;
             collider.gameObject.SetActive(false);
+            EventManager.RaiseTileCollectionUIEvent(maxSpawnTiles-tilesCollected);
+            checkTilesCollectedStatus();
         }
 
         if(collider.tag == "Ball")
         {
             StopPlayer();
             EventManager.RaiseBallCollisionEvent();
+            EventManager.RaiseLevelEndEvent(false);
+        }
+    }
+
+    void checkTilesCollectedStatus() 
+    {
+        if(tilesCollected >= maxSpawnTiles)
+        {
+            EventManager.RaiseLevelEndEvent(true);
+            WinPlayer();
+            EventManager.RaiseTilesCollectedEvent();
         }
     }
 

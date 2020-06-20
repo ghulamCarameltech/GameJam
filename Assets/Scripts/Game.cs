@@ -27,10 +27,15 @@ public class Game : MonoBehaviour
     void Start()
     {
         currentLevelIndex = 1;
+        LoadLevel();
     }
 
     public void LoadLevel ()
     {
+        if(currentLevelIndex == 4)
+        {
+            currentLevelIndex = 1;
+        }
         SceneManager.LoadScene(string.Format("Scenes/Part_{0}", currentLevelIndex), LoadSceneMode.Single);
     }
 
@@ -46,7 +51,19 @@ public class Game : MonoBehaviour
         if (success)
         {
             currentLevelIndex++;
-            if (currentLevelIndex > 3) currentLevelIndex = 1;
+        }
+        else
+        {
+            currentLevelIndex = 1;
+        }
+
+        if(currentLevelIndex == 2)
+        {
+            delay = 3f;
+        }
+        else
+        {
+            delay = 0f;
         }
         
         StartCoroutine(WaitAndDo(success,delay));

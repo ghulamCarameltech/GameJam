@@ -21,11 +21,13 @@ public class BallSpawner : MonoBehaviour
     void OnEnable()
     {
         EventManager.OnBallCollision += StopSpawning;
+        EventManager.OnTilesCollected += StopSpawning;
     }
 
     void OnDisable()
     {
         EventManager.OnBallCollision -= StopSpawning;
+        EventManager.OnTilesCollected -= StopSpawning;
     }
 
  
@@ -40,7 +42,7 @@ public class BallSpawner : MonoBehaviour
 
         spawnPoints = spawningPointsAsList.ToArray ();
 
-         canSpawn=true;
+        canSpawn=true;
     }
  
      void SetRandomTime ()

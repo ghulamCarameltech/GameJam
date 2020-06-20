@@ -12,6 +12,8 @@ public class StackController : MonoBehaviour
 
     int currentTileIndex = 0;
 
+    float time = 30;
+
     void OnEnable()
     {
         InputController.onTap += StopTile;
@@ -45,7 +47,7 @@ public class StackController : MonoBehaviour
 
     void Initilize()
     {
-        Game.ShootType type = Game.ShootType.Nice;
+        Game.ShootType type = Game.selectedShootType;
         switch(type)
         {
             case Game.ShootType.Perfect:
@@ -62,6 +64,21 @@ public class StackController : MonoBehaviour
         InputController.Enable = true;
 
         TileDisplace();
+    }
+
+    void FixedUpdate()
+    {
+        if(time <= 0)
+        {
+            return;
+        }
+        EventManager.RaiseTimerTickUIEvent((int)time);
+        time -= Time.deltaTime;
+            
+            if (time <= 0) 
+            {
+                EventManager.RaiseLevelEndEvent(false);
+            }
     }
 
     void TileDisplace()
@@ -114,6 +131,11 @@ public class StackController : MonoBehaviour
         if((tiles[currentTileIndex].transform.localPosition.y <= pos[currentTileIndex].y+0.05) && (tiles[currentTileIndex].transform.localPosition.y >= pos[currentTileIndex].y-0.05))
         {
             currentTileIndex++;
+            if(currentTileIndex == 7)
+            {
+                EventManager.RaiseLevelEndEvent(true);
+                return;
+            }
             MoveNextTile();
         }
         else

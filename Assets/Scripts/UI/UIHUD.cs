@@ -12,7 +12,13 @@ public class UIHUD : MonoBehaviour
     GameObject _gauge;
 
     [SerializeField]
+    private TextMeshProUGUI _tileCollectedResult;
+
+    [SerializeField]
     GameObject _tilesToCollect;
+
+    [SerializeField]
+    private TextMeshProUGUI _timer;
 
     [SerializeField]
     GameObject _stackingTimer;
@@ -29,14 +35,19 @@ public class UIHUD : MonoBehaviour
         if(Game.currentLevelIndex == 1)
         {
             _gauge.SetActive(true);
+            Animator animator = _gauge.GetComponent<Animator>();
+            animator.enabled = true;
+            _gaugeResult.text = "";
             InputController.onTap += StopGauge;
         }
         else if(Game.currentLevelIndex == 2)
         {
+            EventManager.OnTileCollected += UpdateTileScoreUI;
             _tilesToCollect.SetActive(true);
         }
         else if(Game.currentLevelIndex == 3)
         {
+            EventManager.OnTimerTick += UpdateTimerUI;
             _stackingTimer.SetActive(true);
         }
          
@@ -44,7 +55,9 @@ public class UIHUD : MonoBehaviour
 
     void OnDisable()
     {
-         InputController.onTap -= StopGauge;
+        EventManager.OnTileCollected -= UpdateTileScoreUI;
+        EventManager.OnTimerTick -= UpdateTimerUI;
+        InputController.onTap -= StopGauge;
     }
 
     private void StopGauge()
@@ -99,6 +112,16 @@ public class UIHUD : MonoBehaviour
             _gaugeResult.text = string.Format("Missed!");
             break;
         }
+    }
+
+    void UpdateTileScoreUI(int value)
+    {
+        _tileCollectedResult.text = string.Format("{0}",value);
+    }
+
+    void UpdateTimerUI(int value)
+    {
+        _timer.text = string.Format("{0}",value);
     }
 
     public void BackButton()

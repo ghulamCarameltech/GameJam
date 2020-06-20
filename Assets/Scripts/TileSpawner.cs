@@ -6,7 +6,7 @@ public class TileSpawner : MonoBehaviour
 {
     private GameObject[] spawnObject;
 
-    int maxSpawnTiles = 5;
+    int maxSpawnTiles = 0;
 
     void Awake ()
     {
@@ -19,6 +19,19 @@ public class TileSpawner : MonoBehaviour
         }
 
         spawnObject = spawningPointsAsList.ToArray ();
+
+        if(Game.selectedShootType == Game.ShootType.Perfect)
+        {
+            maxSpawnTiles = 1;
+        }
+        else if(Game.selectedShootType == Game.ShootType.Good)
+        {
+            maxSpawnTiles = 2;
+        }
+        else if(Game.selectedShootType == Game.ShootType.Nice)
+        {
+            maxSpawnTiles = 5;
+        }
 
         SpawnTiles();
     }

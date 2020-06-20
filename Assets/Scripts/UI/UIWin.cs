@@ -14,6 +14,9 @@ public class UIWin : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI _score;
 
+    [SerializeField]
+    private  TextMeshProUGUI _titleText;
+
     void OnEnable()
     {
         if(Game.selectedShootType == Game.ShootType.Perfect)
@@ -29,6 +32,21 @@ public class UIWin : MonoBehaviour
             _score.text = string.Format("5 Tiles");
         }
 
+
+        if(Game.currentLevelIndex == 2)
+        {
+            _titleText.text = string.Format("You Have Broken");
+        }
+        else if(Game.currentLevelIndex == 3)
+        {
+            _titleText.text = string.Format("You Have Collected");
+        }
+        else
+        {
+            _titleText.text = string.Format("Congratulations!");
+            _score.text = string.Format("You Done it!");
+        }
+
         Time.timeScale = 0f;
     }
 
@@ -39,8 +57,15 @@ public class UIWin : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        if(Game.currentLevelIndex == 4)
+        {
+            uIManager.ShowScreen(UIManager.UIs.MainMenu);
+        }
+        else
+        {
+            gameManager.StartLevel();
+        }
         gameManager.LoadLevel();
-        gameManager.StartLevel();
     }
 
     public void LoadHomeScreen()

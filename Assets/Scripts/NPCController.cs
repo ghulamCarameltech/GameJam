@@ -23,11 +23,13 @@ public class NPCController : MonoBehaviour
     void OnEnable()
     {
         EventManager.OnBallCollision += StopPlayer;
+        EventManager.OnTilesCollected += DeadPlayer;
     }
 
     void OnDisable()
     {
         EventManager.OnBallCollision -= StopPlayer;
+        EventManager.OnTilesCollected -= DeadPlayer;
     }
 
     void Awake()
@@ -63,6 +65,12 @@ public class NPCController : MonoBehaviour
     {
         _animator.SetBool("Run", false);
         _animator.SetBool("Jump",true);
+    }
+
+    void DeadPlayer()
+    {
+        _animator.SetBool("Run", false);
+        _animator.SetBool("Death",true);
     }
 
 

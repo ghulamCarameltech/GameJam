@@ -28,7 +28,8 @@ public class UILose : MonoBehaviour
     public void TryAgain()
     {
         gameManager.LoadLevel();
-        gameManager.StartLevel();
+        uIManager.ShowScreen(UIManager.UIs.MainMenu);
+        // gameManager.StartLevel();
     }
 
     public void LoadHomeScreen()
