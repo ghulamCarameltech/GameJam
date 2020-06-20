@@ -2,10 +2,19 @@
 
 public class EventManager : MonoBehaviour
 {
-    public delegate void Shoot(UIHUD.ShootType type);
+    public delegate void LevelEnd(bool success);
+    public static event LevelEnd OnLevelEnd;
+
+    public static void RaiseLevelEndEvent (bool success)
+    {
+        if (OnLevelEnd != null)
+            OnLevelEnd.Invoke(success);
+    }
+
+    public delegate void Shoot(Game.ShootType type);
     public static event Shoot OnShoot;
 
-    public static void RaiseShootEvent (UIHUD.ShootType type)
+    public static void RaiseShootEvent (Game.ShootType type)
     {
         if (OnShoot != null)
             OnShoot.Invoke(type);

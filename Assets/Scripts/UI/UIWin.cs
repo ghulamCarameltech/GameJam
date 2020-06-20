@@ -5,8 +5,8 @@ using TMPro;
 
 public class UIWin : MonoBehaviour
 {
-    // [SerializeField]
-    // private Game gameManager;
+    [SerializeField]
+    private Game gameManager;
 
     [SerializeField]
     private UIManager uIManager;
@@ -16,7 +16,19 @@ public class UIWin : MonoBehaviour
 
     void OnEnable()
     {
-        // _score.text = string.Format("{0}", Level.Score);
+        if(Game.selectedShootType == Game.ShootType.Perfect)
+        {
+            _score.text = string.Format("1 Tile");
+        }
+        else if(Game.selectedShootType == Game.ShootType.Good)
+        {
+            _score.text = string.Format("2 Tiles");
+        }
+        else if(Game.selectedShootType == Game.ShootType.Nice)
+        {
+            _score.text = string.Format("5 Tiles");
+        }
+
         Time.timeScale = 0f;
     }
 
@@ -25,16 +37,10 @@ public class UIWin : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void Continue()
-    {
-        uIManager.ShowScreen(UIManager.UIs.HUD);
-        InputController.Enable = true;
-    }
-
     public void LoadNextLevel()
     {
-        // gameManager.LoadLevel();
-        // gameManager.StartLevel();
+        gameManager.LoadLevel();
+        gameManager.StartLevel();
     }
 
     public void LoadHomeScreen()

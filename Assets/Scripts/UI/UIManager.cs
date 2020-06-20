@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
     
     void OnEnable()
     {
+        DontDestroyOnLoad(gameObject);
         InputController.onBack += UIExitGame;
     }
 

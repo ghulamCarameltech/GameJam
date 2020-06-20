@@ -5,14 +5,14 @@ using TMPro;
 
 public class UILose : MonoBehaviour
 {
-    // [SerializeField]
-    // private Game gameManager;
+    [SerializeField]
+    private Game gameManager;
 
     [SerializeField]
     private UIManager uIManager;
 
-    [SerializeField]
-    private TextMeshProUGUI _score;
+    // [SerializeField]
+    // private TextMeshProUGUI _score;
 
     void OnEnable()
     {
@@ -27,8 +27,8 @@ public class UILose : MonoBehaviour
 
     public void TryAgain()
     {
-        // gameManager.LoadLevel();
-        // gameManager.StartLevel();
+        gameManager.LoadLevel();
+        gameManager.StartLevel();
     }
 
     public void LoadHomeScreen()

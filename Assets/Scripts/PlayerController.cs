@@ -32,30 +32,31 @@ public class PlayerController : MonoBehaviour
         _camera = GameObject.FindObjectOfType<Camera>();
         _rb = GetComponent<Rigidbody>();
         _rb.isKinematic = true;
-        InputController.Enable = true;
     }
 
-    void ThrowBall(UIHUD.ShootType type)
+    void ThrowBall(Game.ShootType type)
     {
+        Game.selectedShootType = type;
+
        _rb.isKinematic = false;
 
        InputController.Enable = false;
 
        switch (type)
        {
-           case UIHUD.ShootType.Perfect:
+           case Game.ShootType.Perfect:
             _rb.AddForce(new Vector3(0,105,1378)); 
            break;
 
-           case UIHUD.ShootType.Good:
+           case Game.ShootType.Good:
             _rb.AddForce(new Vector3(0,100,1350)); 
            break;
 
-           case UIHUD.ShootType.Nice:
+           case Game.ShootType.Nice:
             _rb.AddForce(new Vector3(0,0,1400)); 
            break;
 
-           case UIHUD.ShootType.Missed:
+           case Game.ShootType.Missed:
             int range = Random.Range(0,2);
             if(range == 0)
             {
@@ -81,6 +82,14 @@ public class PlayerController : MonoBehaviour
 
         LeanTween.move(_camera.gameObject,finalPos,2f);
         LeanTween.rotate(_camera.gameObject,finalRot,2f);
+        if(Game.selectedShootType == Game.ShootType.Missed)
+        {
+            EventManager.RaiseLevelEndEvent(false);
+        }
+        else
+        {
+            EventManager.RaiseLevelEndEvent(true);
+        }
     }
 }
 

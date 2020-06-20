@@ -45,16 +45,16 @@ public class StackController : MonoBehaviour
 
     void Initilize()
     {
-        UIHUD.ShootType type = UIHUD.ShootType.Nice;
+        Game.ShootType type = Game.ShootType.Nice;
         switch(type)
         {
-            case UIHUD.ShootType.Perfect:
+            case Game.ShootType.Perfect:
                 currentTileIndex = 6;
             break;
-             case UIHUD.ShootType.Good:
+             case Game.ShootType.Good:
                 currentTileIndex = 5;
             break;
-            case UIHUD.ShootType.Nice:
+            case Game.ShootType.Nice:
                 currentTileIndex = 2;
             break;
         }
