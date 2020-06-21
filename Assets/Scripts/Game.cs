@@ -46,6 +46,18 @@ public class Game : MonoBehaviour
         {
             currentLevelIndex = 1;
         }
+        if(currentLevelIndex == 1)
+        {
+            SoundManager.PlayMusic("BackgroundMusic");
+        }
+        else if(currentLevelIndex == 2)
+        {
+            SoundManager.PlayMusic("runnerBg");
+        }
+        else if(currentLevelIndex == 3)
+        {
+            SoundManager.PlayMusic("stackingBg");
+        } 
         SceneManager.LoadScene(string.Format("Scenes/Part_{0}", currentLevelIndex), LoadSceneMode.Single);
     }
 
@@ -77,10 +89,15 @@ public class Game : MonoBehaviour
         float delay = 3f;
         if (success)
         {
+            if(currentLevelIndex != 1)
+            {
+                SoundManager.PlaySound("Win");
+            }
             currentLevelIndex++;
         }
         else
         {
+            SoundManager.PlaySound("fail");
             currentLevelIndex = 1;
         }
 
@@ -90,7 +107,7 @@ public class Game : MonoBehaviour
         }
         else if(currentLevelIndex == 3)
         {
-            delay = 3f;
+            delay = 2f;
         }
         else
         {

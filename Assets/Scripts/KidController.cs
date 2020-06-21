@@ -267,6 +267,7 @@ public class KidController : MonoBehaviour
             tilesCollected++;
             collider.gameObject.SetActive(false);
             EventManager.RaiseTileCollectionUIEvent(maxSpawnTiles-tilesCollected);
+            SoundManager.PlaySound("TileCollect");
             checkTilesCollectedStatus();
         }
 
