@@ -21,15 +21,15 @@ public class UIWin : MonoBehaviour
     {
         if(Game.selectedShootType == Game.ShootType.Perfect)
         {
-            _score.text = string.Format("1 Stone");
+            _score.text = string.Format("1 Tile");
         }
         else if(Game.selectedShootType == Game.ShootType.Good)
         {
-            _score.text = string.Format("2 Stones");
+            _score.text = string.Format("2 Tiles");
         }
         else if(Game.selectedShootType == Game.ShootType.Nice)
         {
-            _score.text = string.Format("5 Stones");
+            _score.text = string.Format("5 Tiles");
         }
 
 

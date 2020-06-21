@@ -94,7 +94,7 @@ public class RunnerInputController : MonoBehaviour
             }
         }
 
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR || UNITY_WEBGL
             if(Input.GetKeyDown(KeyCode.RightArrow) && onMove != null)
             {
                 onMove(Direction.Right);
