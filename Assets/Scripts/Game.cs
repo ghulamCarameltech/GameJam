@@ -13,6 +13,16 @@ public class Game : MonoBehaviour
 
     public static int currentLevelIndex;
 
+    
+    [SerializeField]
+    private TutorialController tutorialPart1;
+
+    [SerializeField]
+    private TutorialController tutorialPart2;
+
+    [SerializeField]
+    private TutorialController tutorialPart3;
+
     void OnEnable()
     {
         DontDestroyOnLoad(gameObject);
@@ -43,6 +53,23 @@ public class Game : MonoBehaviour
     {
         uIManager.ShowScreen(UIManager.UIs.HUD);
         InputController.Enable = true;
+
+        if(PlayerPrefsManager.GetTutorial())
+        {
+            if(currentLevelIndex == 1)
+            {
+                tutorialPart1.ShowTutorial();
+            }
+            else if(currentLevelIndex == 2)
+            {
+                tutorialPart2.ShowTutorial();
+            }
+            else if(currentLevelIndex == 3)
+            {
+                tutorialPart1.ShowTutorial();
+            }
+            PlayerPrefsManager.SetTutorial(false);
+        }
     }
 
     private void HandleLevelEndEvent (bool success)

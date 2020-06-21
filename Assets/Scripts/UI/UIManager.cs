@@ -32,8 +32,15 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private UIBack uIBack;
 
-    // [SerializeField]
-    // private TutorialController tutorial;
+
+    [SerializeField]
+    private TutorialController tutorialPart1;
+
+    [SerializeField]
+    private TutorialController tutorialPart2;
+
+    [SerializeField]
+    private TutorialController tutorialPart3;
 
     void Start()
     {
@@ -115,7 +122,11 @@ public class UIManager : MonoBehaviour
 
         uIBack.gameObject.SetActive(false);
 
-        // tutorial.gameObject.SetActive(false);
+        tutorialPart1.gameObject.SetActive(false);
+
+        tutorialPart2.gameObject.SetActive(false);
+
+        tutorialPart3.gameObject.SetActive(false);
     }
 
     void UIExitGame()
