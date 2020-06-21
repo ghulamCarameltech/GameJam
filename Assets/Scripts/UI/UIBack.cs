@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class UIBack : MonoBehaviour
 {
-    // [SerializeField]
-    // private Game gameManager;
+    [SerializeField]
+    private Game gameManager;
 
     [SerializeField]
     private UIManager uIManager;
@@ -27,7 +27,8 @@ public class UIBack : MonoBehaviour
 
     public void LoadHomeScreen()
     {
-        // gameManager.LoadLevel();
+        Game.currentLevelIndex = 1;
+        gameManager.LoadLevel();
         uIManager.ShowScreen(UIManager.UIs.MainMenu);
     }
 }

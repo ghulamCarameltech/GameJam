@@ -273,6 +273,10 @@ public class KidController : MonoBehaviour
 
         if(collider.tag == "Ball")
         {
+            if(tilesCollected >= maxSpawnTiles)
+            {
+                return;
+            }
             StopPlayer();
             EventManager.RaiseBallCollisionEvent();
             EventManager.RaiseLevelEndEvent(false);

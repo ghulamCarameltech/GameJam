@@ -78,7 +78,7 @@ public class Game : MonoBehaviour
             }
             else if(currentLevelIndex == 3)
             {
-                tutorialPart1.ShowTutorial();
+                tutorialPart3.ShowTutorial();
             }
             PlayerPrefsManager.SetTutorial(false);
         }
