@@ -42,6 +42,8 @@ public class KidController : MonoBehaviour
 
     int maxSpawnTiles;
 
+    bool _gameEnd;
+
     void OnEnable()
     {
         RunnerInputController.onMove += ChangeDirection;
@@ -74,6 +76,8 @@ public class KidController : MonoBehaviour
 
         _move = true;
 
+        _gameEnd = false;
+
         switch(Game.selectedShootType) {
             case Game.ShootType.Perfect:
                 maxSpawnTiles = 1;
@@ -92,6 +96,17 @@ public class KidController : MonoBehaviour
 
     void Update()
     {
+        if(PlayerPrefsManager.GetTutorial() && !_gameEnd )
+        {
+            _move = false;
+        }
+        else
+        {
+            if(!_gameEnd)
+                _move = true;
+        }
+
+
         if(_move)
             Move();
     }
@@ -215,7 +230,8 @@ public class KidController : MonoBehaviour
         _animator.SetBool("Run",false);
         _animator.SetBool("Death",true);
         RunnerInputController.Enable = false;
-        _move = false;    
+        _move = false;   
+        _gameEnd = true; 
     }
 
     void WinPlayer()
@@ -224,6 +240,7 @@ public class KidController : MonoBehaviour
         _animator.SetBool("Jump",true);
         RunnerInputController.Enable = false;
         _move = false;
+        _gameEnd = true;
     }
 
     void RotateTowardsMoving()

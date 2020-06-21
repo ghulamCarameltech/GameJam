@@ -2412,6 +2412,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 7520942815531331519, guid: 31dd4635800004b4a9dd23c377065b92,
+        type: 3}
+      propertyPath: maxTime
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7520942815531331519, guid: 31dd4635800004b4a9dd23c377065b92,
+        type: 3}
+      propertyPath: minTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7520942816258003809, guid: 31dd4635800004b4a9dd23c377065b92,
         type: 3}
       propertyPath: kid

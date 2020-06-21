@@ -66,13 +66,17 @@ public class StackController : MonoBehaviour
             break;
         }
 
-        InputController.Enable = true;
-
         TileDisplace();
     }
 
     void FixedUpdate()
     {
+        if(PlayerPrefsManager.GetTutorial())
+        {
+            InputController.Enable = false;
+            return;
+        }
+
         if(time <= 0)
         {
             return;

@@ -37,13 +37,19 @@ public class NPCController : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         _animator = GetComponent<Animator>();
-
-        _move = true;
-
     }
 
     void Update()
     {
+        if(PlayerPrefsManager.GetTutorial())
+        {
+            _move = false;
+        }
+        else
+        {
+            _move = true;
+        }
+
         if(_move)
             Move();
     }

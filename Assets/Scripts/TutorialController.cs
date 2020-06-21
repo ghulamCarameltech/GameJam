@@ -6,32 +6,38 @@ public class TutorialController : MonoBehaviour
 {
     void OnDisable()
     {
-       
-        InputController.onTap -= HideTutorial;
-        RunnerInputController.onMove -= HideTutorialSwipe;
+        TutorialInputController.onTap -= HideTutorial;
+        PlayerPrefsManager.SetTutorial(false);
+    }
+
+    void OnEnable()
+    {
+        InputController.Enable = false;
+        RunnerInputController.Enable = false;
     }
 
     public void ShowTutorial()
     {
         gameObject.SetActive(true);
-        if(Game.currentLevelIndex == 1 || Game.currentLevelIndex == 3)
-        {
-            InputController.onTap += HideTutorial;
-        }
-        else
-        {
-            RunnerInputController.onMove += HideTutorialSwipe;
-        }
+        
+        TutorialInputController.onTap += HideTutorial;
     }
 
     public void HideTutorial()
     {
         gameObject.SetActive(false);
+        Invoke("EnableController",0.2f);
     }
 
     public void HideTutorialSwipe(RunnerInputController.Direction direction)
     {
         gameObject.SetActive(false);
+    }
+
+    void EnableController()
+    {
+        InputController.Enable = true;
+        RunnerInputController.Enable = true;
     }
 
 }

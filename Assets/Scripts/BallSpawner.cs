@@ -18,6 +18,8 @@ public class BallSpawner : MonoBehaviour
 
     bool canSpawn;
 
+    bool _gameEnd;
+
     void OnEnable()
     {
         EventManager.OnBallCollision += StopSpawning;
@@ -43,6 +45,8 @@ public class BallSpawner : MonoBehaviour
         spawnPoints = spawningPointsAsList.ToArray ();
 
         canSpawn=true;
+
+        _gameEnd = false;
     }
  
      void SetRandomTime ()
@@ -52,14 +56,23 @@ public class BallSpawner : MonoBehaviour
 
     void FixedUpdate ()
     {
+        if(PlayerPrefsManager.GetTutorial() && !_gameEnd )
+        {
+            canSpawn = false;
+        }
+        else
+        {
+            if(!_gameEnd)
+                canSpawn = true;
+        }
+
         if(canSpawn)
         {
             time += Time.deltaTime;
-            
+            SetRandomTime ();
             if (time >= spawnTime) 
             {
                 Spawn ();
-                SetRandomTime ();
                 time = 0;
             }
         }
@@ -76,6 +89,7 @@ public class BallSpawner : MonoBehaviour
     void StopSpawning()
     {
         canSpawn = false;
+        _gameEnd = true;
     }
 }
 

@@ -80,7 +80,6 @@ public class Game : MonoBehaviour
             {
                 tutorialPart3.ShowTutorial();
             }
-            PlayerPrefsManager.SetTutorial(false);
         }
     }
 
