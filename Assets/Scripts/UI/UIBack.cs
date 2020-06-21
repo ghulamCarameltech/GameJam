@@ -13,11 +13,15 @@ public class UIBack : MonoBehaviour
     void OnEnable()
     {
         Time.timeScale = 0f;
+        InputController.Enable = false;
+        RunnerInputController.Enable = false;
     }
 
     void OnDisable()
     {
         Time.timeScale = 1;
+        InputController.Enable = true;
+        RunnerInputController.Enable = true;
     }
 
     public void Resume()

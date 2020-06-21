@@ -151,7 +151,7 @@ public class StackController : MonoBehaviour
 
     void MoveCameraTowardsTiles() 
     {
-        Vector3 finalPos = new Vector3(0.004105858f,0.7235834f,-2.479285f);
+        Vector3 finalPos = new Vector3(0.004105858f,0.87f,-1.88f);
         LeanTween.move(camera.gameObject,finalPos,1f).setOnComplete(MoveNextTile);
     }
 

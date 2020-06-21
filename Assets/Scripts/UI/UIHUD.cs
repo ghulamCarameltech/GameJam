@@ -50,7 +50,8 @@ public class UIHUD : MonoBehaviour
             EventManager.OnTimerTick += UpdateTimerUI;
             _stackingTimer.SetActive(true);
         }
-         
+         InputController.onBack += BackButton;
+         RunnerInputController.onBack += BackButton;
     }
 
     void OnDisable()
@@ -58,6 +59,8 @@ public class UIHUD : MonoBehaviour
         EventManager.OnTileCollected -= UpdateTileScoreUI;
         EventManager.OnTimerTick -= UpdateTimerUI;
         InputController.onTap -= StopGauge;
+        InputController.onBack -= BackButton;
+        RunnerInputController.onBack -= BackButton;
     }
 
     private void StopGauge()
@@ -97,15 +100,15 @@ public class UIHUD : MonoBehaviour
         switch (type)
         {
             case Game.ShootType.Perfect:
-            _gaugeResult.text = string.Format("Perfect Shoot!");
+            _gaugeResult.text = string.Format("Perfect Throw!");
             break;
 
             case Game.ShootType.Good:
-            _gaugeResult.text = string.Format("Good Shoot!");
+            _gaugeResult.text = string.Format("Good Throw!");
             break;
 
             case Game.ShootType.Nice:
-            _gaugeResult.text = string.Format("Nice Shoot!");
+            _gaugeResult.text = string.Format("Nice Throw!");
             break;
 
             case Game.ShootType.Missed:
