@@ -69,18 +69,18 @@ public class UIHUD : MonoBehaviour
 
     private void UpdateGaugeStatus()
     {
-        int postion = (int)_gauge.transform.GetChild(0).transform.localPosition.x;
-        if((postion <= -186 && postion >= -312) || (postion >= 203 && postion <= 328))
+        int postion = Mathf.Abs((int)_gauge.transform.GetChild(0).transform.localPosition.x);
+        if((postion >= 199 && postion <= 328))
         {
             EventManager.RaiseShootEvent(Game.ShootType.Missed);
             UpdateShootTypeHUD(Game.ShootType.Missed);
         }
-        else if((postion <= -70 && postion >= -185) || (postion >= 88 && postion <= 202))
+        else if((postion >= 81 && postion <= 198))
         {
             EventManager.RaiseShootEvent(Game.ShootType.Nice);
             UpdateShootTypeHUD(Game.ShootType.Nice);
         }
-        else if((postion <= -8 && postion >= -69) || (postion >= 7 && postion <= 87))
+        else if(postion >= 16 && postion <= 80)
         {
             EventManager.RaiseShootEvent(Game.ShootType.Good);
             UpdateShootTypeHUD(Game.ShootType.Good);

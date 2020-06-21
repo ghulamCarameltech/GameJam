@@ -88,6 +88,10 @@ public class Game : MonoBehaviour
         {
             delay = 3f;
         }
+        else if(currentLevelIndex == 3)
+        {
+            delay = 3f;
+        }
         else
         {
             delay = 0f;

@@ -14,6 +14,9 @@ public class StackController : MonoBehaviour
 
     float time = 30;
 
+    [SerializeField]
+    Camera camera;
+
     void OnEnable()
     {
         InputController.onTap += StopTile;
@@ -41,6 +44,8 @@ public class StackController : MonoBehaviour
         {
             pos[i] = tiles[i].transform.localPosition;
         }
+
+        MoveCameraTowardsTiles();
 
         Initilize();
     }
@@ -90,8 +95,6 @@ public class StackController : MonoBehaviour
             tiles[i].transform.eulerAngles = new Vector3(0,0,0);
             tiles[i].SetActive(false);
         }
-
-        MoveNextTile(); 
     }
 
     void MoveNextTile()
@@ -141,8 +144,15 @@ public class StackController : MonoBehaviour
         else
         {
             Initilize();
+            MoveNextTile();
         }
         
+    }
+
+    void MoveCameraTowardsTiles() 
+    {
+        Vector3 finalPos = new Vector3(0.004105858f,0.7235834f,-2.479285f);
+        LeanTween.move(camera.gameObject,finalPos,1f).setOnComplete(MoveNextTile);
     }
 
     
