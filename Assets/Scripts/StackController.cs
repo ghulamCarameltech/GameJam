@@ -45,6 +45,7 @@ public class StackController : MonoBehaviour
             pos[i] = tiles[i].transform.localPosition;
         }
 
+        Game.timeRemainingWhenTilesStacked = 0;
         MoveCameraTowardsTiles();
 
         Initilize();
@@ -140,6 +141,7 @@ public class StackController : MonoBehaviour
             currentTileIndex++;
             if(currentTileIndex == 7)
             {
+                Game.timeRemainingWhenTilesStacked = (int)time;
                 EventManager.RaiseLevelEndEvent(true);
                 return;
             }

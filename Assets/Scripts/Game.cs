@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     public enum ShootType {Perfect, Good, Nice, Missed};
 
     public static ShootType selectedShootType;
+    public static int timeRemainingWhenTilesStacked;
 
     [SerializeField]
     private UIManager uIManager;
